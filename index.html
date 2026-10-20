@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Happy Toy — хүүхдэд аз жаргал, бүтээлч сэтгэлгээ өгөх чанартай тоглоомын онлайн дэлгүүр.">
+    <title>Happy Toy — Аз жаргалын тоглоомууд</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Иконкны sprite -->
+    <svg class="svg-sprite" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+        <symbol id="icon-search" viewBox="0 0 24 24">
+            <circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" stroke-width="1.8"/>
+            <path d="m16 16 4.4 4.4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.8"/>
+        </symbol>
+        <symbol id="icon-heart" viewBox="0 0 24 24">
+            <path d="M20.8 8.7c0 5-8.8 10-8.8 10s-8.8-5-8.8-10A4.7 4.7 0 0 1 12 6.2a4.7 4.7 0 0 1 8.8 2.5Z" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="1.8"/>
+        </symbol>
+        <symbol id="icon-bag" viewBox="0 0 24 24">
+            <path d="M5.5 8.5h13l1 11h-15l1-11Z" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="1.8"/>
+            <path d="M9 9V6.7a3 3 0 0 1 6 0V9" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.8"/>
+        </symbol>
+        <symbol id="icon-user" viewBox="0 0 24 24">
+            <circle cx="12" cy="8" r="3.4" fill="none" stroke="currentColor" stroke-width="1.8"/>
+            <path d="M5.5 19.4a6.7 6.7 0 0 1 13 0" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.8"/>
+        </symbol>
+        <symbol id="icon-arrow" viewBox="0 0 24 24">
+            <path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.9"/>
+        </symbol>
+        <symbol id="icon-chevron" viewBox="0 0 24 24">
+            <path d="m7 9 5 5 5-5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+        </symbol>
+        <symbol id="icon-close" viewBox="0 0 24 24">
+            <path d="m6 6 12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2"/>
+        </symbol>
+        <symbol id="icon-menu" viewBox="0 0 24 24">
+            <path d="M4 7h16M4 12h16M4 17h16" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2"/>
+        </symbol>
+        <symbol id="icon-spark" viewBox="0 0 24 24">
+            <path d="m12 2 1.7 6.3L20 10l-6.3 1.7L12 18l-1.7-6.3L4 10l6.3-1.7L12 2Z" fill="currentColor"/>
+        </symbol>
+        <symbol id="icon-check" viewBox="0 0 24 24">
+            <path d="m5 12 4.5 4.5L19 7" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2"/>
+        </symbol>
+    </svg>
+
+    <div class="announcement-bar">
+        <div class="container announcement-inner">
+            <span><span class="announcement-icon">✦</span> 50,000₮-с дээш худалдан авалтад хүргэлт үнэгүй</span>
+            <a href="#sale" class="announcement-link">Одоо худалдан авах <span>→</span></a>
+        </div>
+    </div>
+
+    <header class="site-header" id="siteHeader">
+        <div class="container navbar">
+            <a href="#home" class="brand" aria-label="Happy Toy нүүр хуудсанд буцах">
+                <span class="brand-mark">🧸</span>
+                <span class="brand-name">Happy <strong>Toy</strong></span>
+            </a>
+
+            <nav class="main-nav" id="mainNav" aria-label="Үндсэн цэс">
+                <a href="#home" class="nav-link active">Нүүр</a>
+                <a href="#categories" class="nav-link">Ангилал</a>
+                <a href="#products" class="nav-link">Тоглоом</a>
+                <a href="#sale" class="nav-link">Хямдрал</a>
+                <a href="#about" class="nav-link">Бидний тухай</a>
+                <a href="#contact" class="nav-link">Холбоо</a>
+            </nav>
+
+            <div class="nav-actions">
+                <button class="icon-button" data-action="open-search" aria-label="Хайх">
+                    <svg class="icon"><use href="#icon-search"></use></svg>
+                </button>
+                <button class="icon-button" data-action="open-wishlist" aria-label="Хүссэн бараа">
+                    <svg class="icon"><use href="#icon-heart"></use></svg>
+                    <span class="action-count" id="wishlistCount">0</span>
+                </button>
+                <button class="icon-button account-button" data-action="open-account" aria-label="Бүртгэл ба нэвтрэх" id="accountButton">
+                    <svg class="icon"><use href="#icon-user"></use></svg>
+                    <span class="account-name" id="accountName" hidden></span>
+                    <span class="account-dot" id="accountDot" aria-hidden="true" hidden></span>
+                </button>
+                <button class="cart-trigger" data-action="open-cart">
+                    <svg class="icon"><use href="#icon-bag"></use></svg>
+                    <span class="cart-label">Сагс</span>
+                    <span class="cart-count" id="cartCount">0</span>
+                </button>
+                <button class="menu-toggle" data-action="toggle-menu" aria-label="Цэс нээх" aria-expanded="false">
+                    <svg class="icon menu-icon"><use href="#icon-menu"></use></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- HERO: 3 слайд -->
+        <section class="hero" id="home">
+            <div class="hero-glow hero-glow-one"></div>
+            <div class="hero-glow hero-glow-two"></div>
+            <div class="container hero-layout">
+                <div class="hero-copy">
+                    <div class="eyebrow"><span class="eyebrow-dot"></span> Шинэ цуглуулга · 2026</div>
+
+                    <div class="hero-slides" aria-live="polite">
+                        <article class="hero-slide is-active" data-slide="0">
+                            <p class="hero-kicker">АЗ ЖАРГАЛЫН МОМЕНТ</p>
+                            <h1>Хүүхдийн <em>аз жаргал</em> эндээс эхэлнэ.</h1>
+                            <p class="hero-description">Бүтээлч сэтгэлгээг хөгжүүлж, найзалж сурах баяртай мөчүүдийг чанартай тоглоомуудаар бүрэн дүүрэн таны хүүхдэд хүргэе.</p>
+                            <div class="hero-buttons">
+                                <a href="#products" class="button button-primary">Тоглоом үзэх <svg class="icon"><use href="#icon-arrow"></use></svg></a>
+                                <a href="#about" class="button button-ghost">Бидний тухай <span>↗</span></a>
+                            </div>
+                        </article>
+
+                        <article class="hero-slide" data-slide="1">
+                            <p class="hero-kicker">ТОГЛОО · БҮТЭЭ · НЭЭ</p>
+                            <h1>Бүтээлч <em>сэтгэлгээ</em>г хөгжүүлнэ.</h1>
+                            <p class="hero-description">Дэлгэцнээс салж, гардан бүтээж, хамтдаа тоглосны дараа бодит байдлаас олсон санаагаа хуваалцаж сурах ур чадвар.</p>
+                            <div class="hero-buttons">
+                                <a href="#categories" class="button button-primary">Ангилал сонгох <svg class="icon"><use href="#icon-arrow"></use></svg></a>
+                                <a href="#gallery" class="button button-ghost">Галерей үзэх <span>↗</span></a>
+                            </div>
+                        </article>
+
+                        <article class="hero-slide" data-slide="2">
+                            <p class="hero-kicker">ИНЭЭМСЭГЛЭЛТЭЙ БЭЛЭГ</p>
+                            <h1>Бэлэг бүр <em>баяртай</em> мөч болно.</h1>
+                            <p class="hero-description">Төрсөн өдрийн баяр, амжилтанд баримжлал төгсөх, ур чадвараа хуваалцах — бүгдийг дурсамжтай бэлэг болгоно.</p>
+                            <div class="hero-buttons">
+                                <a href="#sale" class="button button-primary">Хямдрал үзэх <svg class="icon"><use href="#icon-arrow"></use></svg></a>
+                                <button class="button button-ghost" data-action="open-wishlist">Хүссэн бараа <span>♡</span></button>
+                            </div>
+                        </article>
+                    </div>
+
+                    <div class="hero-stats" aria-label="Дэлгүүрийн танилцуулга (демо тоонууд)">
+                        <div><strong>500<span>+</span></strong><small>Дуртай тоглоом</small></div>
+                        <div><strong>10<span>К+</span></strong><small>Аз жаргалтай үйлчлүүлэгч</small></div>
+                        <div><strong>4.9<span>★</span></strong><small>Дундаж үнэлгээ</small></div>
+                    </div>
+
+                    <div class="slider-controls">
+                        <button class="slider-arrow" data-action="prev-slide" aria-label="Өмнөх слайд">←</button>
+                        <div class="slider-dots" role="tablist" aria-label="Нүүр хуудасны слайдууд">
+                            <button class="slider-dot is-active" data-slide-to="0" aria-label="1-р слайд"></button>
+                            <button class="slider-dot" data-slide-to="1" aria-label="2-р слайд"></button>
+                            <button class="slider-dot" data-slide-to="2" aria-label="3-р слайд"></button>
+                        </div>
+                        <span class="slide-status"><b id="currentSlide">01</b> / 03</span>
+                        <button class="slider-arrow" data-action="next-slide" aria-label="Дараагийн слайд">→</button>
+                    </div>
+                </div>
+
+                <div class="hero-visual" aria-label="Happy Toy-ийн дүрслэл">
+                    <div class="visual-sparkle sparkle-one">✦</div>
+                    <div class="visual-sparkle sparkle-two">✧</div>
+                    <div class="visual-orbit orbit-one"></div>
+                    <div class="visual-orbit orbit-two"></div>
+
+                    <article class="hero-art is-active" data-art="0">
+                        <div class="art-back-card"></div>
+                        <div class="art-image-frame">
+                            <span class="art-emoji">🧸</span>
+                            <img src="https://images.unsplash.com/photo-1559454403-b8fb88521f11?auto=format&fit=crop&w=900&q=80" alt="Зөөлөн баавгайн чихмэл тоглоом" data-fallback="true">
+                        </div>
+                        <div class="art-label art-label-top"><span>зөөлөн</span><strong>Хамгийн дуртай</strong></div>
+                        <div class="art-note"><span>♡</span><strong>10K+</strong><small>сэтгэлгээ</small></div>
+                    </article>
+
+                    <article class="hero-art" data-art="1">
+                        <div class="art-back-card art-back-yellow"></div>
+                        <div class="art-image-frame">
+                            <span class="art-emoji">🧩</span>
+                            <img src="https://images.unsplash.com/photo-1587654780291-39c9404d746b?auto=format&fit=crop&w=900&q=80" alt="Бүтээх тоглоомын хэсгүүд" data-fallback="true">
+                        </div>
+                        <div class="art-label art-label-top"><span>бүтээх</span><strong>Бүтээх хүч</strong></div>
+                        <div class="art-note"><span>✦</span><strong>∞</strong><small>санаа</small></div>
+                    </article>
+
+                    <article class="hero-art" data-art="2">
+                        <div class="art-back-card art-back-lavender"></div>
+                        <div class="art-image-frame">
+                            <span class="art-emoji">🎁</span>
+                            <img src="https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&w=900&q=80" alt="Бэлгийн савлагаа, хүүхдийн баяр" data-fallback="true">
+                        </div>
+                        <div class="art-label art-label-top"><span>бэлэг</span><strong>Баяр тэмдэглэл</strong></div>
+                        <div class="art-note"><span>☺</span><strong>100%</strong><small>сэтгэлтэй</small></div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="trust-strip" aria-label="Happy Toy-ийн давуу талууд">
+            <div class="container trust-items">
+                <div><span class="trust-icon">✦</span><p><strong>500+</strong><small>сонгосон тоглоом</small></p></div>
+                <div><span class="trust-icon">⌁</span><p><strong>24 цаг</strong><small>Улаанбаатарт хүргэлт</small></p></div>
+                <div><span class="trust-icon">♡</span><p><strong>4.9/5</strong><small>үйлчлүүлэгчийн үнэлгээ</small></p></div>
+                <div><span class="trust-icon">♧</span><p><strong>100%</strong><small>аюулгүй сонголт</small></p></div>
+            </div>
+        </section>
+
+        <!-- CATEGORIES -->
+        <section class="section categories-section" id="categories">
+            <div class="container">
+                <div class="section-heading">
+                    <div>
+                        <span class="section-kicker">ТОГЛОМЫН ЕРӨНХИЙ СОНГОЛТ</span>
+                        <h2>Дуртай ангилалаа <em>олцгооё</em></h2>
+                    </div>
+                    <a href="#products" class="text-link">Бүх тоглоом <svg class="icon"><use href="#icon-arrow"></use></svg></a>
+                </div>
+                <div class="categories-grid">
+                    <button class="category-card category-pink" data-category="soft">
+                        <span class="category-number">01</span><span class="category-icon">🧸</span><strong>Чихмэл</strong><small data-cat-count="soft"></small><span class="category-arrow">↗</span>
+                    </button>
+                    <button class="category-card category-blue" data-category="car">
+                        <span class="category-number">02</span><span class="category-icon">🚗</span><strong>Машин</strong><small data-cat-count="car"></small><span class="category-arrow">↗</span>
+                    </button>
+                    <button class="category-card category-yellow" data-category="lego">
+                        <span class="category-number">03</span><span class="category-icon">🧩</span><strong>Угсардаг</strong><small data-cat-count="lego"></small><span class="category-arrow">↗</span>
+                    </button>
+                    <button class="category-card category-lavender" data-category="doll">
+                        <span class="category-number">04</span><span class="category-icon">🎎</span><strong>Хүүхэлдэй</strong><small data-cat-count="doll"></small><span class="category-arrow">↗</span>
+                    </button>
+                    <button class="category-card category-mint" data-category="sport">
+                        <span class="category-number">05</span><span class="category-icon">⚽</span><strong>Спорт</strong><small data-cat-count="sport"></small><span class="category-arrow">↗</span>
+                    </button>
+                    <button class="category-card category-coral" data-category="bambruush">
+                        <span class="category-number">06</span><span class="category-icon">🖌️</span><strong>Бамбуруш</strong><small data-cat-count="bambruush"></small><span class="category-arrow">↗</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- PRODUCTS -->
+        <section class="section products-section" id="products">
+            <div class="container">
+                <div class="section-heading products-heading">
+                    <div>
+                        <span class="section-kicker">ОЛОНХЫН ДУРТАЙ СОНГОЛТ</span>
+                        <h2>Өнөөдрийн <em>сэтгэлтэй</em> сонголт</h2>
+                    </div>
+                    <div class="product-tools">
+                        <label class="search-field" for="productSearch">
+                            <svg class="icon"><use href="#icon-search"></use></svg>
+                            <input id="productSearch" type="search" placeholder="Тоглоом хайх..." autocomplete="off">
+                        </label>
+                        <label class="select-field">
+                            <span class="sr-only">Ангилал шүүх</span>
+                            <select id="categoryFilter">
+                                <option value="all">Бүх ангилал</option>
+                                <option value="soft">Чихмэл</option>
+                                <option value="car">Машин</option>
+                                <option value="lego">Угсардаг</option>
+                                <option value="doll">Хүүхэлдэй</option>
+                                <option value="sport">Спорт</option>
+                                <option value="bambruush">Бамбуруш</option>
+                            </select>
+                            <svg class="icon"><use href="#icon-chevron"></use></svg>
+                        </label>
+                        <label class="select-field sort-field">
+                            <span class="sr-only">Эрэмблэх</span>
+                            <select id="sortFilter">
+                                <option value="featured">Зөвлөмж</option>
+                                <option value="price-low">Үнэ: бага → их</option>
+                                <option value="price-high">Үнэ: их → бага</option>
+                                <option value="rating">Үнэлгээ</option>
+                            </select>
+                            <svg class="icon"><use href="#icon-chevron"></use></svg>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="results-line">
+                    <p><strong id="resultCount">0</strong> бараа олдлоо</p>
+                    <div class="active-filter-wrap" id="activeFilterWrap" hidden>
+                        <span id="activeFilterText"></span>
+                        <button data-action="clear-filters" aria-label="Шүүлт арилгах">×</button>
+                    </div>
+                </div>
+
+                <div class="product-grid" id="productGrid" aria-live="polite"></div>
+                <div class="empty-results" id="emptyResults" hidden>
+                    <span>🔎</span><h3>Тоглоом олдсонгүй</h3><p>Хайх үгээ өөрчилж дахин хайж үзээрэй.</p><button class="button button-ghost" data-action="clear-filters">Бүх тоглоом</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- SALE -->
+        <section class="sale-section" id="sale">
+            <div class="container sale-card">
+                <div class="sale-copy">
+                    <span class="sale-kicker"><span class="pulse-dot"></span> ХЯЗГАРЛАГДМАЛ ХУГАЦАТАЙ УРАМШУУЛ</span>
+                    <h2>Дуртай тоглоомууд <em>хямдарлаа</em></h2>
+                    <p>Хязгаарлагдмал хугацаатай урамшууллаа амжиж аваарай. Хамгийн дуртай бараанууд 20% хүртэл хямдарсан.</p>
+                    <div class="sale-bottom">
+                        <a href="#products" class="button button-light" data-action="show-sale">Хямдарсан бараа үзэх <svg class="icon"><use href="#icon-arrow"></use></svg></a>
+                        <div class="countdown" aria-label="Хямдралын үлдсэн хугацаа">
+                            <div><strong id="days">06</strong><small>өдөр</small></div><i>:</i><div><strong id="hours">23</strong><small>цаг</small></div><i>:</i><div><strong id="minutes">59</strong><small>минут</small></div><i>:</i><div><strong id="seconds">59</strong><small>секунд</small></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="sale-art" aria-hidden="true">
+                    <div class="sale-sun">✦</div>
+                    <div class="gift-box">🎁</div>
+                    <span class="sale-sticker">20%<small>↓</small></span>
+                    <span class="sale-confetti confetti-a">✦</span><span class="sale-confetti confetti-b">•</span><span class="sale-confetti confetti-c">✧</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- GALLERY -->
+        <section class="section gallery-section" id="gallery">
+            <div class="container">
+                <div class="section-heading">
+                    <div><span class="section-kicker">HAPPY TOY ГАЛЕРЕЙ</span><h2>Өнгөлөг <em>мөчүүд</em></h2></div>
+                    <span class="heading-note">Хүүхдийн дуртай сонголт</span>
+                </div>
+                <div class="gallery-grid">
+                    <button class="gallery-tile gallery-featured" data-gallery="0"><img src="https://images.unsplash.com/photo-1596461404969-9ae70f2830c1?auto=format&fit=crop&w=1200&q=80" alt="Модон тоглоомын галерей" data-fallback="true"><span>Тоглоомын ертөнц <b>↗</b></span></button>
+                    <button class="gallery-tile" data-gallery="1"><img src="https://images.unsplash.com/photo-1587654780291-39c9404d746b?auto=format&fit=crop&w=1000&q=80" alt="Бүтээх хэсгүүд" data-fallback="true"><span>Бүтээх хүч <b>↗</b></span></button>
+                    <button class="gallery-tile" data-gallery="2"><img src="https://images.unsplash.com/photo-1559454403-b8fb88521f11?auto=format&fit=crop&w=1000&q=80" alt="Чихмэл тоглоом" data-fallback="true"><span>Зөөлөн найзууд <b>↗</b></span></button>
+                    <button class="gallery-tile" data-gallery="3"><img src="https://images.unsplash.com/photo-1575361204480-aadea25e6e68?auto=format&fit=crop&w=1000&q=80" alt="Спортын тоглоом" data-fallback="true"><span>Хөгжүүлэх мөч <b>↗</b></span></button>
+                    <button class="gallery-tile" data-gallery="4"><img src="https://images.unsplash.com/photo-1595429035839-c99c298ffdde?auto=format&fit=crop&w=1000&q=80" alt="Баатрын фигур тоглоом" data-fallback="true"><span>Баатрын дүр <b>↗</b></span></button>
+                </div>
+            </div>
+        </section>
+
+        <!-- BENEFITS -->
+        <section class="section benefits-section">
+            <div class="container">
+                <div class="center-heading"><span class="section-kicker">ЯАГААД HAPPY TOY?</span><h2>Яагаад <em>биднийг</em> сонгох вэ?</h2><p>Хүүхдийн инээмсэглэлд зориулж, бага насны бүх мөчийг баяртай болгохоор ажилладаг.</p></div>
+                <div class="benefits-grid">
+                    <article class="benefit-card"><span class="benefit-icon">⌁</span><h3>Хурдан хүргэлт</h3><p>Улаанбаатар хотод 24 цагийн дотор хүргэлт.</p><span class="benefit-index">01</span></article>
+                    <article class="benefit-card"><span class="benefit-icon">♧</span><h3>100% аюулгүй</h3><p>Хүүхдэд зориулсан чанартай бүтээгдэхүүн.</p><span class="benefit-index">02</span></article>
+                    <article class="benefit-card"><span class="benefit-icon">♡</span><h3>Бэлгийн савлагаа</h3><p>Таны бэлгийг гоёмсог савлагаатай хүргэнэ.</p><span class="benefit-index">03</span></article>
+                    <article class="benefit-card"><span class="benefit-icon">✦</span><h3>24/7 тусламж</h3><p>Асуух зүйл байвал бид үргэлж бэлэн.</p><span class="benefit-index">04</span></article>
+                </div>
+            </div>
+        </section>
+
+        <!-- ABOUT -->
+        <section class="section about-section" id="about">
+            <div class="container about-layout">
+                <div class="about-art">
+                    <div class="about-blob"></div>
+                    <div class="about-bear">🧸</div>
+                    <span class="about-star star-a">✦</span><span class="about-star star-b">✧</span><span class="about-star star-c">•</span>
+                    <div class="about-sticker"><strong>100%</strong><span>сэтгэлтэй</span></div>
+                </div>
+                <div class="about-copy">
+                    <span class="section-kicker">HAPPY TOY SHOP</span>
+                    <h2>Бяцхан инээмсэглэл бүр <em>үнэ цэнтэй.</em></h2>
+                    <p>Happy Toy Shop нь хүүхэд бүрт аз жаргал, бүтээлч сэтгэлгээ, хөгжилтэй мөчүүдийг бэлэглэх зорилготой онлайн тоглоомын дэлгүүр.</p>
+                    <p>Бид тоглоом бүрийг чанар, аюулгүй байдал болон хүүхдийн хөгжлийн онцлогт анхааран сонгодог. Тиймээс зөвхөн хөгжилтэй төдийгүй, хүүхэд үргэлж шинэ зүйл олох боломжтой байхаар ажилладаг.</p>
+                    <a href="#contact" class="button button-primary">Бидэнтэй танилцах <svg class="icon"><use href="#icon-arrow"></use></svg></a>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTACT -->
+        <section class="section contact-section" id="contact">
+            <div class="container contact-card">
+                <div class="contact-intro"><span class="section-kicker">ХАМТДАА ХОЛБОГДОЁ</span><h2>Бидэнтэй <em>холбогдоорой</em></h2><p>Тоглоом сонгох, бэлэг захилах, эсвэл юу ч асуухад бидэнтэй холбогдоорой.</p><div class="contact-socials"><a href="#" aria-label="Facebook">f</a><a href="#" aria-label="Instagram">◎</a><a href="#" aria-label="TikTok">♪</a></div></div>
+                <div class="contact-details">
+                    <a class="contact-item" href="tel:99112233"><span>📞</span><div><strong>9911-2233</strong><small>Өдөрт 09:00–21:00</small></div><b>↗</b></a>
+                    <a class="contact-item" href="mailto:happytoy@gmail.com"><span>✉</span><div><strong>happytoy@gmail.com</strong><small>24 цагийн турш хариулна</small></div><b>↗</b></a>
+                    <a class="contact-item" href="#contact"><span>⌖</span><div><strong>Улаанбаатар, Монгол</strong><small>Онцгой хүргэлттэй</small></div><b>↗</b></a>
+                </div>
+                <form class="contact-form" id="contactForm">
+                    <div class="form-field"><label for="contactName">Таны нэр</label><input id="contactName" name="name" type="text" placeholder="Нэр оруулна уу" required></div>
+                    <div class="form-field"><label for="contactPhone">Утас</label><input id="contactPhone" name="phone" type="tel" placeholder="9911-2233" required></div>
+                    <div class="form-field form-message"><label for="contactMessage">Мессеж</label><textarea id="contactMessage" name="message" rows="3" placeholder="Бидэнд юу хэлж өгөх вэ?" required></textarea></div>
+                    <button class="button button-primary form-submit" type="submit">Мессеж илгээх <svg class="icon"><use href="#icon-arrow"></use></svg></button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container footer-top">
+            <div class="footer-brand"><a href="#home" class="brand brand-footer"><span class="brand-mark">🧸</span><span class="brand-name">Happy <strong>Toy</strong></span></a><p>Хүүхдийн инээмсэглэлийг өдөр бүр нэмэгдүүлж, баярыг ихэсгэдэг дэлгүүр.</p><div class="newsletter"><label for="emailInput">Аз жаргалын мэдээлэл авах</label><div><input id="emailInput" type="email" placeholder="И-мэйл хаягаа оруулна уу"><button data-action="subscribe" aria-label="Мэдээлэл авах">→</button></div></div></div>
+            <div class="footer-column"><h3>Дэлгүүр</h3><a href="#products">Бүх тоглоом</a><a href="#sale">Хямдрал</a><a href="#categories">Ангилал</a><a href="#gallery">Галерей</a></div>
+            <div class="footer-column"><h3>Тусламж</h3><a href="#contact">Холбоо барих</a><a href="#">Хүргэлтийн мэдээлэл</a><a href="#">Буцаалтын нөхцөл</a><a href="#">Нууцлалын бодлого</a></div>
+            <div class="footer-column"><h3>Биднийг дагах</h3><p class="footer-small">Шинэ тоглоом, сонирхолтой санаагаа хамтдаа хуваалцаарай.</p><div class="socials"><a href="#" aria-label="Facebook">f</a><a href="#" aria-label="Instagram">◎</a><a href="#" aria-label="TikTok">♪</a></div></div>
+        </div>
+        <div class="container footer-bottom"><p>© <span id="currentYear"></span> Happy Toy Shop. Бүх эрх хуулиар хамгаалагдсан.</p><span>Бяцхан мөрөөдөгчдөд зориулж <b>♥</b> бүтээв</span></div>
+    </footer>
+
+    <!-- Overlay -->
+    <div class="page-overlay" id="pageOverlay" data-action="close-panels"></div>
+
+    <!-- Search modal -->
+    <div class="search-modal" id="searchModal" role="dialog" aria-modal="true" aria-labelledby="searchTitle" aria-hidden="true">
+        <div class="search-modal-card">
+            <button class="modal-close" data-action="close-search" aria-label="Хайх цонхыг хаах"><svg class="icon"><use href="#icon-close"></use></svg></button>
+            <span class="modal-kicker">ХАЙЛТ</span>
+            <h2 id="searchTitle">Юу хайж байна?</h2>
+            <form class="modal-search-form" id="searchForm"><svg class="icon"><use href="#icon-search"></use></svg><input id="modalSearchInput" type="search" placeholder="Жишээ: машин, чихмэл, бамбуруш..." autocomplete="off"><button type="submit">Хайх <svg class="icon"><use href="#icon-arrow"></use></svg></button></form>
+            <div class="search-suggestions"><span>Хурдан хайлт:</span><button data-search-value="чихмэл">чихмэл</button><button data-search-value="машин">машин</button><button data-search-value="бамбуруш">бамбуруш</button><button data-search-value="хүүхэлдэй">хүүхэлдэй</button></div>
+        </div>
+    </div>
+
+    <!-- Cart drawer -->
+    <aside class="drawer cart-drawer" id="cartDrawer" aria-label="Таны сагс" aria-hidden="true">
+        <div class="drawer-header"><div><span class="drawer-kicker">HAPPY TOY</span><h2>Таны сагс <span id="drawerCartCount">(<span id="cartQuantityInline">0</span>)</span></h2></div><button class="modal-close" data-action="close-cart" aria-label="Сагс хаах"><svg class="icon"><use href="#icon-close"></use></svg></button></div>
+        <div class="drawer-items" id="cartItems"></div>
+        <div class="drawer-footer" id="cartFooter">
+            <div class="cart-summary"><span>Нийт</span><strong id="cartTotal">0₮</strong></div>
+            <p class="shipping-note"><span>✦</span> 50,000₮-с дээш захиалтад хүргэлт үнэгүй</p>
+            <button class="button button-primary checkout-button" data-action="checkout">Захиалга өгөх <svg class="icon"><use href="#icon-arrow"></use></svg></button>
+        </div>
+    </aside>
+
+    <!-- Wishlist drawer -->
+    <aside class="drawer wishlist-drawer" id="wishlistDrawer" aria-label="Хүссэн бараа" aria-hidden="true">
+        <div class="drawer-header"><div><span class="drawer-kicker">ТАНЫ ХАДГАЛСАН</span><h2>Хүссэн бараа <span class="drawer-count" id="wishlistCountInline">(0)</span></h2></div><button class="modal-close" data-action="close-wishlist" aria-label="Хүссэн бараа хаах"><svg class="icon"><use href="#icon-close"></use></svg></button></div>
+        <div class="drawer-items" id="wishlistItems"></div>
+        <div class="drawer-footer"><button class="button button-primary" data-action="go-products">Бүх тоглоом үзэх <svg class="icon"><use href="#icon-arrow"></use></svg></button></div>
+    </aside>
+
+    <!-- Product detail modal -->
+    <div class="checkout-modal product-modal" id="productModal" role="dialog" aria-modal="true" aria-labelledby="productModalTitle" aria-hidden="true">
+        <div class="checkout-card product-detail-card">
+            <button class="modal-close" data-action="close-product" aria-label="Барааны мэдээллийг хаах"><svg class="icon"><use href="#icon-close"></use></svg></button>
+            <div id="productModalBody"></div>
+        </div>
+    </div>
+
+    <!-- Account modal -->
+    <div class="checkout-modal" id="accountModal" role="dialog" aria-modal="true" aria-labelledby="accountTitle" aria-hidden="true">
+        <div class="checkout-card">
+            <button class="modal-close" data-action="close-account" aria-label="Бүртгэлийн цонхыг хаах"><svg class="icon"><use href="#icon-close"></use></svg></button>
+            <div class="checkout-success-mark"><svg class="icon"><use href="#icon-user"></use></svg></div>
+            <span class="modal-kicker">ТАНЫ БҮРТГЭЛ (ДЕМО)</span>
+            <h2 id="accountTitle">Тавтай морил!</h2>
+            <div id="accountBody"></div>
+            <small class="secure-note"><span>♧</span> Энэ бол демо бүртгэл. Мэдээлэл зөвхөн таны төхөөрөмжийн хадгалалтад (localStorage) болно. Бодит нууц үг, банкны картийн мэдээллийг хадгалахгүй.</small>
+        </div>
+    </div>
+
+    <!-- Checkout modal -->
+    <div class="checkout-modal" id="checkoutModal" role="dialog" aria-modal="true" aria-labelledby="checkoutTitle" aria-hidden="true">
+        <div class="checkout-card is-wide">
+            <button class="modal-close" data-action="close-checkout" aria-label="Захиалгын цонхыг хаах"><svg class="icon"><use href="#icon-close"></use></svg></button>
+            <div class="checkout-success-mark"><svg class="icon"><use href="#icon-spark"></use></svg></div>
+            <span class="modal-kicker">СҮҮЛИЙН АЛХАМ</span><h2 id="checkoutTitle">Захиалгаа баталгаажуулъя</h2><p>Хүргэлтийн мэдээллийг бөглөсний дараа бид тун удалгүй тантай холбогдоно.</p>
+            <form id="checkoutForm" class="checkout-form" novalidate>
+                <div class="checkout-grid">
+                    <div class="form-field"><label for="checkoutName">Хүлээн авагчийн бүтэн нэр</label><input id="checkoutName" type="text" placeholder="Нэр оруулна уу" autocomplete="name" required><small class="field-error" data-error-for="checkoutName"></small></div>
+                    <div class="form-field"><label for="checkoutPhone">Холбоо барих утас</label><input id="checkoutPhone" type="tel" placeholder="9911-2233" autocomplete="tel" required><small class="field-error" data-error-for="checkoutPhone"></small></div>
+                    <div class="form-field"><label for="checkoutCity">Хот, аймаг</label><input id="checkoutCity" type="text" list="cityList" placeholder="Улаанбаатар" required><small class="field-error" data-error-for="checkoutCity"></small></div>
+                    <div class="form-field"><label for="checkoutDistrict">Дүүрэг, сум</label><input id="checkoutDistrict" type="text" list="districtList" placeholder="Баянзүрх" required><small class="field-error" data-error-for="checkoutDistrict"></small></div>
+                    <div class="form-field"><label for="checkoutKhoroo">Хороо, баг</label><input id="checkoutKhoroo" type="text" placeholder="Хороо 12 (шаардлагагүй бол хөнгөн)"></div>
+                    <div class="form-field"><label for="checkoutStreet">Гудамж, байрны дугаар</label><input id="checkoutStreet" type="text" placeholder="Сөүлийн гудамж 9, Б байр" required><small class="field-error" data-error-for="checkoutStreet"></small></div>
+                    <div class="form-field"><label for="checkoutExtra">Орц, давхар, хаалга</label><input id="checkoutExtra" type="text" placeholder="Хаалга 2, 5 давхар (шаардлагагүй)"></div>
+                    <div class="form-field form-message"><label for="checkoutNote">Хүргэлтийн заавар</label><textarea id="checkoutNote" rows="2" placeholder="Авах, ажиллах хугацаа, онцгой байдал болон заавар..."></textarea></div>
+                </div>
+                <div class="form-check" id="checkoutSaveWrap"><input type="checkbox" id="checkoutSaveAddress" checked><label for="checkoutSaveAddress">Энэ хаягийг профайлд хадгалах</label></div>
+                <div class="order-total-line" id="checkoutTotalLine"><span id="checkoutItemHint">Нийт дүн</span><strong id="checkoutTotal">0₮</strong></div>
+                <button class="button button-primary" type="submit" id="checkoutSubmit">Захиалгыг баталгаажуулах <svg class="icon"><use href="#icon-check"></use></svg></button>
+            </form>
+            <small class="secure-note"><span>♧</span> Энэ нь демо захиалгын форм бөгөөд төлбөр авахгүй.</small>
+        </div>
+        <datalist id="cityList">
+            <option value="Улаанбаатар"></option><option value="Орхон"></option><option value="Дархан-Уул"></option><option value="Сэлэнгэ"></option><option value="Төв"></option><option value="Хөвсгөл"></option><option value="Булган"></option><option value="Хэнтий"></option><option value="Дорноговь"></option><option value="Дундговь"></option><option value="Өвөрхангай"></option><option value="Увс"></option><option value="Завхан"></option><option value="Архангай"></option><option value="Баянхонгор"></option><option value="Баян-Өлгий"></option><option value="Говь-Алтай"></option><option value="Ховд"></option>
+        </datalist>
+        <datalist id="districtList">
+            <option value="Баянзүрх"></option><option value="Сүхбаатар"></option><option value="Хан-Уул"></option><option value="Баянгол"></option><option value="Чингэлтэй"></option><option value="Сонгинохайрхан"></option><option value="Багануур"></option><option value="Багахангай"></option><option value="Налаих"></option>
+        </datalist>
+    </div>
+
+    <!-- Success modal -->
+    <div class="success-modal" id="successModal" role="dialog" aria-modal="true" aria-hidden="true"><div class="success-card"><div class="success-icon">✓</div><span class="modal-kicker">БАЯР ХҮРГЭЖ БАЙНА!</span><h2>Захиалга хүлээн авлаа!</h2><p id="successMessage">Таны захиалгыг хүлээн авлаа. Ажилтнууд бид тун удалгүй тантай холбогдоно.</p><button class="button button-primary" data-action="close-success">Үргэлжлүүлэх <svg class="icon"><use href="#icon-arrow"></use></svg></button></div></div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"><span class="toast-icon">✓</span><span id="toastMessage">Амжилттай</span></div>
+    <button class="back-to-top" id="backToTop" aria-label="Хуудасны дээд хэсэгт буцах">↑</button>
+
+    <noscript><div class="noscript-message">Энэ дэлгүүрийг ашиглахын тулд JavaScript-ийг идэвхжүүлнэ үү.</div></noscript>
+    <script src="script.js"></script>
+</body>
+</html>
